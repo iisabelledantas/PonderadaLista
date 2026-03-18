@@ -19,6 +19,13 @@ repositories {
 	mavenCentral()
 }
 
+dependencyManagement {
+	imports {
+		mavenBom("io.awspring.cloud:spring-cloud-aws-dependencies:3.1.0")
+		mavenBom("software.amazon.awssdk:bom:2.25.0")
+	}
+}
+
 dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 	implementation("org.springframework.boot:spring-boot-starter-web")
@@ -32,6 +39,9 @@ dependencies {
 	implementation("com.squareup.retrofit2:retrofit:2.9.0")
 	implementation("com.squareup.retrofit2:converter-gson:2.9.0")
 	implementation("com.squareup.okhttp3:okhttp:4.12.0")
+	implementation("io.awspring.cloud:spring-cloud-aws-starter-sqs")
+	implementation("software.amazon.awssdk:cloudwatch")
+	implementation("software.amazon.awssdk:rds")
 }
 
 kotlin {

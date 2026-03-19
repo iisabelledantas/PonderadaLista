@@ -63,11 +63,14 @@ allOpen {
 tasks.withType<Test> {
 	useJUnitPlatform()
 }
-tasks.shadowJar {
-	archiveClassifier.set("all")
-	mergeServiceFiles()
+tasks {
+	named<com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar>("shadowJar") {
+		archiveClassifier.set("all")
+		mergeServiceFiles()
+		manifest {
+			attributes["Main-Class"] = "com.inteli.telemetria.TelemetriaApplicationKt"
+			attributes["Start-Class"] = "com.inteli.telemetria.TelemetriaApplicationKt"
+		}
+	}
 }
 
-tasks.jar {
-	enabled = false
-}

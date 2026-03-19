@@ -45,7 +45,6 @@ dependencies {
 	implementation("software.amazon.awssdk:rds")
 	implementation("com.amazonaws:aws-lambda-java-core:1.2.3")
 	implementation("com.amazonaws:aws-lambda-java-events:3.11.1")
-	implementation("org.slf4j:slf4j-simple:2.0.9")
 	implementation("org.postgresql:postgresql:42.7.3")
 }
 

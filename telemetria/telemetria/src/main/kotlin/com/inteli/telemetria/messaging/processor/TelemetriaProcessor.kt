@@ -7,9 +7,8 @@ import com.fasterxml.jackson.module.kotlin.registerKotlinModule
 import com.inteli.telemetria.Utils.formartUrl
 import com.inteli.telemetria.dto.SensorDataDTO
 import java.sql.DriverManager.getConnection
-import java.sql.PreparedStatement
 
-class TelemetriaConsumer {
+class TelemetriaProcessor {
 
     val endpoint = System.getenv("RDS_ENDPOINT")
     val usuario = System.getenv("RDS_USUARIO")

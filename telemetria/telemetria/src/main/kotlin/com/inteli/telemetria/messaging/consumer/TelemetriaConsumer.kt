@@ -3,16 +3,16 @@ package com.inteli.telemetria.messaging.consumer
 import com.amazonaws.services.lambda.runtime.Context
 import com.amazonaws.services.lambda.runtime.RequestHandler
 import com.amazonaws.services.lambda.runtime.events.SQSEvent
-import com.inteli.telemetria.messaging.processor.TelemetriaConsumer
+import com.inteli.telemetria.messaging.processor.TelemetriaProcessor
 
 
-class TelemetriaProcessor : RequestHandler<SQSEvent, Unit> {
+class TelemetriaConsumer: RequestHandler<SQSEvent, Unit> {
 
-    val consumer = TelemetriaConsumer()
+    val processor = TelemetriaProcessor()
 
     override fun handleRequest(event: SQSEvent, context: Context) {
         for (msg in event.records) {
-            consumer.processMessage(msg, context)
+            processor.processMessage(msg, context)
         }
         context.logger.log("done")
     }

@@ -4,6 +4,7 @@ plugins {
 	id("org.springframework.boot") version "3.5.11"
 	id("io.spring.dependency-management") version "1.1.7"
 	kotlin("plugin.jpa") version "1.9.25"
+	id("com.github.johnrengelman.shadow") version "8.1.1"
 }
 
 group = "com.inteli"
@@ -42,6 +43,10 @@ dependencies {
 	implementation("io.awspring.cloud:spring-cloud-aws-starter-sqs")
 	implementation("software.amazon.awssdk:cloudwatch")
 	implementation("software.amazon.awssdk:rds")
+	implementation("com.amazonaws:aws-lambda-java-core:1.2.3")
+	implementation("com.amazonaws:aws-lambda-java-events:3.11.1")
+	implementation("org.slf4j:slf4j-simple:2.0.9")
+	implementation("org.postgresql:postgresql:42.7.3")
 }
 
 kotlin {
@@ -58,4 +63,12 @@ allOpen {
 
 tasks.withType<Test> {
 	useJUnitPlatform()
+}
+tasks.shadowJar {
+	archiveClassifier.set("all")
+	mergeServiceFiles()
+}
+
+tasks.jar {
+	enabled = false
 }

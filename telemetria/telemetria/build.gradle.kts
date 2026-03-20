@@ -46,6 +46,7 @@ dependencies {
 	implementation("com.amazonaws:aws-lambda-java-core:1.2.3")
 	implementation("com.amazonaws:aws-lambda-java-events:3.11.1")
 	implementation("org.postgresql:postgresql:42.7.3")
+	testImplementation("org.mockito.kotlin:mockito-kotlin:5.2.1")
 }
 
 kotlin {

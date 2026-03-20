@@ -7,23 +7,24 @@ import com.fasterxml.jackson.module.kotlin.registerKotlinModule
 import com.inteli.telemetria.Utils.formartUrl
 import com.inteli.telemetria.dto.SensorDataDTO
 import java.sql.DriverManager.getConnection
+import java.sql.Connection
+import java.sql.DriverManager
 
-class TelemetriaProcessor {
-
-    val endpoint = System.getenv("RDS_ENDPOINT")
-    val usuario = System.getenv("RDS_USUARIO")
-    val senha = System.getenv("RDS_SENHA")
-    val dbname = System.getenv("RDS_DBNAME")
-
-    val url = formartUrl(endpoint, dbname)
-
+class TelemetriaProcessor(
+    private val endpoint: String = System.getenv("RDS_ENDPOINT") ?: "",
+    private val usuario: String = System.getenv("RDS_USUARIO") ?: "",
+    private val senha: String = System.getenv("RDS_SENHA") ?: "",
+    private val dbname: String = System.getenv("RDS_DBNAME") ?: "",
+    private val connectionProvider: () -> Connection = {
+        DriverManager.getConnection(formartUrl(endpoint, dbname), usuario, senha)
+    }
+) {
     fun processMessage(msg: SQSMessage, context: Context) {
         try {
-
             val mapper = ObjectMapper().registerKotlinModule()
             val dto = mapper.readValue(msg.body, SensorDataDTO::class.java)
 
-            getConnection(url, usuario, senha).use { conectionDB ->
+            connectionProvider().use { conectionDB ->
                 conectionDB.prepareStatement(
                     "INSERT INTO sensor_data (sensor_id, temperatura, umidade, timestamp) VALUES (?, ?, ?, ?)"
                 ).use { pstmt ->
@@ -34,9 +35,7 @@ class TelemetriaProcessor {
                     pstmt.executeUpdate()
                 }
             }
-
             context.logger.log("Processed message " + msg.body)
-
         } catch (e: Exception) {
             context.logger.log("An error occurred")
             throw e

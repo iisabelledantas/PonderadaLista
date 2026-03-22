@@ -121,7 +121,7 @@ spring.cloud.aws.sqs.endpoint=https://sqs.sa-east-1.amazonaws.com/seu-id/telemet
 
 ---
 
-## 🧪 Como Rodar os Testes
+## Como Rodar os Testes
 
 ### Testes Unitários
 

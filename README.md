@@ -15,7 +15,7 @@ Sensor → POST /api/telemetria/dados → Backend → SQS → Lambda → RDS Pos
 ## Arquitetura
 
 <div style="display: flex; align-items: center; gap: 8px;">
-  <img src="./docs/static/img/arquitetura.png" width="42" height="42">
+  <img src="./docs/static/img/arquitetura.png">
 </div>
 
 | Componente | Tecnologia | Responsabilidade |

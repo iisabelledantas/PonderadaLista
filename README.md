@@ -24,7 +24,7 @@ Sensor → POST /api/telemetria/dados → Backend → SQS → Lambda → RDS Pos
 | Fila | Amazon SQS | Desacopla backend e Lambda |
 | Processador | AWS Lambda (Java 21) | Consome a fila e persiste no banco |
 | Banco | Amazon RDS PostgreSQL | Armazena os dados de telemetria |
-| Containerização | Docker + LocalStack | Ambiente local reproduzível |
+| Containerização | Docker | Ambiente local reproduzível |
 
 ---
 

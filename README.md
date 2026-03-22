@@ -39,14 +39,6 @@ Sensor → POST /api/telemetria/dados → Backend → SQS → Lambda → RDS Pos
 
 ---
 
-## Pré-requisitos
-
-- JDK 21
-- Docker e Docker Compose instalados
-- AWS CLI configurado com credenciais válidas
-- k6 instalado (para testes de carga)
-- Conta AWS com permissões para SQS, Lambda, RDS, S3 e IAM
-
 ## Como Fazer Deploy na AWS
 
 ### Pré-requisitos AWS

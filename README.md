@@ -1,6 +1,6 @@
 # Sistema de Telemetria
 
-Link da documentação no docusaurus: https://iisabelledantas.github.io/PonderadaLista/
+Link da documentação completa no docusaurus: https://iisabelledantas.github.io/PonderadaLista/
 
 ## Visão Geral
 

@@ -14,8 +14,8 @@ class TelemetriaProcessor(
     private val usuario: String = System.getenv("RDS_USUARIO") ?: "",
     private val senha: String = System.getenv("RDS_SENHA") ?: "",
     private val dbname: String = System.getenv("RDS_DBNAME") ?: "",
+    private val connectionProvider: (() -> Connection)? = null,
 ) {
-
     companion object {
         private val mapper = ObjectMapper().registerKotlinModule()
     }
@@ -23,17 +23,17 @@ class TelemetriaProcessor(
     private var connection: Connection? = null
 
     private fun getOrCreateConnection(): Connection {
-        val conn = connection
 
+        connectionProvider?.let { return it() }
+
+        val conn = connection
         if (conn != null && !conn.isClosed && conn.isValid(2)) {
             return conn
         }
-
         return DriverManager.getConnection(formartUrl(endpoint, dbname), usuario, senha).also {
             connection = it
         }
     }
-
     fun processBatch(messages: List<SQSMessage>, context: Context) {
         if (messages.isEmpty()) return
 
@@ -71,7 +71,6 @@ class TelemetriaProcessor(
 
             context.logger.log("Batch of ${dtos.size} messages inserted successfully")
         } catch (e: Exception) {
-
             context.logger.log("ERROR on batch insert: ${e.message}")
             try {
                 connection?.rollback()
@@ -79,7 +78,6 @@ class TelemetriaProcessor(
             } catch (rollbackEx: Exception) {
                 context.logger.log("ERROR on rollback: ${rollbackEx.message}")
             }
-
             connection = null
             throw e
         }

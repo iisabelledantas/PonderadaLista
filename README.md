@@ -34,7 +34,6 @@ Sensor → POST /api/telemetria/dados → Backend → SQS → Lambda → RDS Pos
 - **AWS SDK** (SQS, Lambda, RDS)
 - **JDBC** (conexão direta com PostgreSQL)
 - **Docker** + **Docker Compose**
-- **LocalStack** (simulação local da AWS)
 - **JUnit 5** + **Mockito** (testes unitários)
 - **k6** + **Grafana** (testes de carga)
 
